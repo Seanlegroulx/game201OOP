@@ -1,4 +1,4 @@
-/* 
+/*
 Sean Legroulx
 Game 202
 Majid Moghadam
@@ -33,7 +33,7 @@ void LoadGame()
 		WINDOW_WIDTH, WINDOW_HIGHT,
 
 		SDL_WINDOW_SHOWN);
-	if(!window) {
+	if (!window) {
 		return;
 	}
 
@@ -54,9 +54,66 @@ void LoadGame()
 	AIpaddle.w = 20;
 
 	Ball.x = 370;
-	Ball.y = 290; 
+	Ball.y = 290;
 	Ball.w = 20;
 	Ball.h = 20;
 
 
+}
+
+void input() {
+
+}
+
+
+void update() {
+
+}
+
+
+void DrawScreen() {
+
+	SDL_RenderClear(renderer);
+
+	SDL_Rect background = { 0, 0, 800, 600 };
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_RenderFillRect(renderer, &background);
+
+
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderFillRect(renderer, &playerpaddle);
+	SDL_RenderFillRect(renderer, &AIpaddle);
+
+
+	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+	SDL_RenderFillRect(renderer, &Ball);
+
+	SDL_RenderPresent(renderer);
+}
+
+void Quit() {
+
+	SDL_Quit();
+}
+
+
+int main(int argc, char *argv[]) {
+
+	LoadGame();
+
+	while (running == true) {
+		input();
+		update();
+		DrawScreen();
+
+
+
+
+	}
+
+
+
+	Quit();
+
+	return 0;
 }
