@@ -9,6 +9,8 @@ Pong
 */
 
 #include "sdl.h"
+#include <cstdlib>
+
 
 #define WINDOW_WIDTH  800
 #define WINDOW_HIGHT  600
@@ -19,9 +21,39 @@ SDL_Renderer *renderer;
 bool running = true;
 
 
+SDL_Event event;
+
+
+int mouse_x, mouse_y;
+int speed_x, speed_y;
+int direction[2] = { -1, 1 };
+
 SDL_Rect playerpaddle;
 SDL_Rect AIpaddle;
 SDL_Rect Ball;
+
+
+
+bool check_collision(SDL_Rect A, SDL_Rect B)
+{
+
+	int leftA, LeftB;
+	int rightA, rightB;
+	int topA, topB;
+	int bottomA, bottomB;
+
+
+
+
+
+
+
+
+
+
+
+
+}
 
 void LoadGame()
 {
@@ -36,6 +68,9 @@ void LoadGame()
 	if (!window) {
 		return;
 	}
+	speed_x = -1;
+	speed_y = -1;
+
 
 
 	renderer = SDL_CreateRenderer(window, -1, 0);
@@ -62,11 +97,65 @@ void LoadGame()
 }
 
 void input() {
+	while (SDL_PollEvent(&event)) {
+		if (event.type == SDL_MOUSEMOTION)
+		{
+			SDL_GetMouseState(&mouse_x, &mouse_y);
+		}
 
+		if (event.type == SDL_QUIT)
+		{
+			running = false;
+		}
+
+		if (event.type == SDL_KEYDOWN) {
+			switch (event.key.keysym.sym)
+			{
+			case SDLK_ESCAPE:
+				running = false;
+				break;
+			}
+		}
+	}
 }
 
 
 void update() {
+	playerpaddle.y = mouse_y;
+
+	Ball.x += speed_x;
+	Ball.y += speed_y;
+
+
+
+
+	if (Ball.x < 0 || Ball.x > WINDOW_WIDTH) {
+		Ball.x = WINDOW_WIDTH / 2;
+		Ball.y = WINDOW_WIDTH / 2;
+
+
+
+		speed_x = (rand() % 2 + 1) * direction[rand() % 2];
+		speed_y = (rand() % 2 + 1) * direction[rand() % 2];
+
+	}
+
+	if (Ball.y < 0 || Ball.y > WINDOW_HIGHT)
+	{
+		speed_y = -speed_y;
+	}
+
+	if (Ball.y < 0 || Ball.y >(WINDOW_HIGHT - Ball.h))
+	{
+		speed_y = -speed_y;
+	}
+
+
+
+	AIpaddle.y = Ball.y - AIpaddle.h / 2 + Ball.h / 2;
+
+
+	SDL_Delay(10);
 
 }
 
