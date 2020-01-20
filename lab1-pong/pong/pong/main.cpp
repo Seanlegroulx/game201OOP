@@ -43,16 +43,38 @@ bool check_collision(SDL_Rect A, SDL_Rect B)
 	int bottomA, bottomB;
 
 
+	leftA = A.x;
+	rightA = A.x + A.w;
+	topA = A.y;
+	bottomA = A.y + A.h;
+
+
+	LeftB = B.x;
+	rightB = B.x + B.w;
+	topB = B.y;
+	bottomB = B.y + B.h;
+
+
+	if (bottomA <= topB) {
+		return false;
+	}
+
+	if (topA >= bottomB) {
+		return false;
+	}
+
+	if (rightA <= LeftB) {
+		return false;
+	}
+
+	if (leftA >= rightB) {
+		return false;
+	}
 
 
 
 
-
-
-
-
-
-
+	return true;
 }
 
 void LoadGame()
@@ -126,7 +148,10 @@ void update() {
 	Ball.x += speed_x;
 	Ball.y += speed_y;
 
-
+	if (check_collision(Ball, AIpaddle) || check_collision(Ball, playerpaddle))
+	{
+		speed_x = -speed_x;
+	}
 
 
 	if (Ball.x < 0 || Ball.x > WINDOW_WIDTH) {
@@ -140,15 +165,13 @@ void update() {
 
 	}
 
-	if (Ball.y < 0 || Ball.y > WINDOW_HIGHT)
-	{
-		speed_y = -speed_y;
-	}
+	
 
 	if (Ball.y < 0 || Ball.y >(WINDOW_HIGHT - Ball.h))
 	{
 		speed_y = -speed_y;
 	}
+
 
 
 
