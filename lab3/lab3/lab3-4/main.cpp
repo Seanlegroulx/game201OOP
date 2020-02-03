@@ -213,6 +213,8 @@ int main(int argc, char *argv[])
 		}
 
 
+
+
 		while (SDL_PollEvent(&event)) {
 			switch (event.type)
 			{
@@ -232,7 +234,7 @@ int main(int argc, char *argv[])
 				break;
 			case SDL_MOUSEBUTTONDOWN:
 
-				if (event.button.button)
+				if (event.button.button == SDL_BUTTON_LEFT)
 				{
 					positions[2].x = positions[0].x;
 					positions[2].y = positions[0].y;
@@ -240,6 +242,23 @@ int main(int argc, char *argv[])
 
 				}
 
+				break;
+			case SDL_MOUSEBUTTONUP:
+				
+
+					break;
+
+			case SDL_JOYBUTTONDOWN:
+
+
+				if (event.jbutton.which == 0 && event.jbutton.button == 0)
+				{
+					positions[3].x = positions[1].x;
+					positions[3].y = positions[1].y;
+					velocities[3].x = -1;
+
+				
+				}
 				break;
 			}
 		}
