@@ -10,7 +10,7 @@
 #define NUM_SPRITES     4
 #define MAX_SPEED       1
 
-SDL_Texture* sprite;
+
 SDL_Texture* sprite1; //alien
 SDL_Texture* sprite2; //canon
 SDL_Texture* sprite3;	//fireball
@@ -66,7 +66,7 @@ int LoadSprite(char *file, SDL_Renderer *renderer, SDL_Texture* &somesprite)
 	return (0);
 }
 
-void MoveSprites(SDL_Window * window, SDL_Renderer * renderer, SDL_Texture * sprite)
+void MoveSprites(SDL_Window * window, SDL_Renderer * renderer)
 {
 	int i;
 	int window_w = WINDOW_WIDTH;
@@ -186,36 +186,6 @@ int main(int argc, char *argv[])
 	while (!done) {
 		// Check for events
 		while (SDL_PollEvent(&event)) {
-			if (event.type == SDL_QUIT || event.type == SDL_KEYDOWN) {
-				done = 1;
-			}
-		}
-		MoveSprites(window, renderer, sprite1);
-		MoveSprites(window, renderer, sprite2);
-		MoveSprites(window, renderer, sprite3);
-		MoveSprites(window, renderer, sprite4);
-		
-		
-		if (joy)
-		{
-
-			
-			positions[1].y += SDL_JoystickGetAxis(joy, 1) / 6000;
-			if (positions[1].x > WINDOW_WIDTH - sprite_w)
-				positions[1].x = WINDOW_WIDTH - sprite_w;
-			if (positions[1].x < 0)
-				positions[1].x = 0;
-			if (positions[1].y > WINDOW_HEIGHT - sprite_h)
-				positions[1].y = WINDOW_HEIGHT - sprite_h;
-			if (positions[1].y < 0)
-				positions[1].y = 0;
-
-		}
-
-
-
-
-		while (SDL_PollEvent(&event)) {
 			switch (event.type)
 			{
 
@@ -226,11 +196,11 @@ int main(int argc, char *argv[])
 				done = 1;
 				break;
 			case SDL_MOUSEMOTION:
-				;
-				
-					positions[0].y = event.motion.y;
-				
-				
+
+
+				positions[0].y = event.motion.y;
+
+
 				break;
 			case SDL_MOUSEBUTTONDOWN:
 
@@ -244,9 +214,9 @@ int main(int argc, char *argv[])
 
 				break;
 			case SDL_MOUSEBUTTONUP:
-				
 
-					break;
+
+				break;
 
 			case SDL_JOYBUTTONDOWN:
 
@@ -257,12 +227,30 @@ int main(int argc, char *argv[])
 					positions[3].y = positions[1].y;
 					velocities[3].x = -1;
 
-				
+
 				}
 				break;
 			}
 		}
 
+		if (joy)
+		{
+
+
+			positions[1].y += SDL_JoystickGetAxis(joy, 1) / 6000;
+			if (positions[1].x > WINDOW_WIDTH - sprite_w)
+				positions[1].x = WINDOW_WIDTH - sprite_w;
+			if (positions[1].x < 0)
+				positions[1].x = 0;
+			if (positions[1].y > WINDOW_HEIGHT - sprite_h)
+				positions[1].y = WINDOW_HEIGHT - sprite_h;
+			if (positions[1].y < 0)
+				positions[1].y = 0;
+
+		}
+		
+		MoveSprites(window, renderer);
+		
 		SDL_Delay(3);
 	}
 
@@ -270,3 +258,5 @@ int main(int argc, char *argv[])
 
 	return true;
 }
+
+//SDL_InitSubSystem
