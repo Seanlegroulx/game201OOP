@@ -1,10 +1,18 @@
 //==============================================================================
 #include "CApp.h"
-
+#include <iostream>
 //==============================================================================
 CApp::CApp()
 {
     Running = true;
+
+	health = 20;
+
+	points = 0;
+
+	scroller = 0;
+
+	speedfactor = 0;
 }
 
 
@@ -18,7 +26,73 @@ Uint32 CApp::time_left(void)
     else
         return next_time - now;
 }
+//USE THIS FUNCTION TO DETECT COLLISIONS BETWEEN SNOWFLAKES and YOUR PLAYER
+bool CApp::checkCollision(SDL_Rect A, SDL_Rect B)
+{
+	//The sides of the rectangles
+	int leftA, leftB;
+	int rightA, rightB;
+	int topA, topB;
+	int bottomA, bottomB;
+	//Calculate the sides of rect A
+	leftA = A.x;
+	rightA = A.x + A.w;
+	topA = A.y;
+	bottomA = A.y + A.h;
+	//Calculate the sides of rect B
+	leftB = B.x;
+	rightB = B.x + B.w;
+	topB = B.y;
+	bottomB = B.y + B.h;
+	//If any of the sides from A are outside of B
+	if (bottomA <= topB)
+	{
+		return false;
+	}
+	if (rightA <= leftB)
+	{
+		return false;
+	}
+	if (leftA >= rightB)
+	{
+		return false;
+	}
+	if (topA >= bottomB)
+	{
+		return false;
+	}
 
+	//If none of the sides from A are outside B
+	return true;
+}
+
+/*int CApp::health(int hp)
+{
+	hp = hp - 1;
+
+	if (hp == 0)
+	{
+		SDL_Quit();
+	}
+
+	return hp;
+}*/
+
+void CApp::displayGameStats(int x, int y, char* formattedString, int number) {
+
+	sprintf_s(message, formattedString, number);	 		//convert number to string, insert into formatted string
+	messageSurface = TTF_RenderText_Solid(font, message, color);	//make text an image (an SDL_Surface)
+	messageTexture = SDL_CreateTextureFromSurface(renderer, messageSurface);	//convert SDL_Surface to SDL_Texture
+
+	int texW = 0;
+	int texH = 0;
+	SDL_QueryTexture(messageTexture, NULL, NULL, &texW, &texH);	//get width & height of texture
+	messageRect = { x, y, texW, texH };				//create a SDL_Rect for the message
+
+	SDL_RenderCopy(renderer, messageTexture, NULL, &messageRect);	//copy it to screen
+	SDL_DestroyTexture(messageTexture);				//release the Texture and Surfaces resources we created
+	SDL_FreeSurface(messageSurface);
+}
 
 
 int
@@ -96,10 +170,19 @@ int CApp::OnExecute()
         }
 
         OnLoop();
+		if (health == 0)
+		{
+			std::cout << "YOU HAVE DIED" << endl;
+
+			std::cout << " your total score was: " << points << endl;
+			Running = false;
+		}
         OnRender();
     }
 
     OnCleanup();
+
+	 
 
     return 0;
 }

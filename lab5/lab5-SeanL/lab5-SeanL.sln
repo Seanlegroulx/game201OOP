@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Part3-DodgingGame", "Part3-
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Part1-SpriteSheets2", "Part1-SpriteSheets2\Part1-SpriteSheets2.vcxproj", "{2EBFD32B-F6A9-4B59-8D5A-80CC54B079ED}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{08502364-BA89-436D-A0F7-071FC8E96EAD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64

@@ -22,20 +22,30 @@ bool CApp::OnInit()
     if (!renderer)
         return false;
 
+
+	TTF_Init();		//starts up SDL_ttf
+
+	font = TTF_OpenFont("lazy.ttf", 25);
+	color = { 255, 0, 0 };
+
     srand(time(NULL));
 
-    for (i = 0; i < NUM_SPRITES; ++i) {
-		allplayers[i].imagename = "snowflake.bmp";
+    for (i = 0; i < (NUM_SPRITES); ++i) {
+		allplayers[i].imagename = "Flying_Saucer.bmp";
         allplayers[i].loadPlayer(renderer);
         allplayers[i].position.x = rand() % (window_w);
-        allplayers[i].position.y = rand() % (window_h);
+        allplayers[i].position.y = (rand() % (window_h))-200;
         allplayers[i].velocity.x = 0;
-        allplayers[i].velocity.y = 0;
-        while (!allplayers[i].velocity.x && !allplayers[i].velocity.y) {
-            allplayers[i].velocity.x = (rand() % (MAX_SPEED * 2 + 1)) - MAX_SPEED;
-            allplayers[i].velocity.y = (rand() % (MAX_SPEED * 2 + 1)) - MAX_SPEED;
-        }
+		allplayers[i].velocity.y = rand() % (MAX_SPEED * 3) + 1;
     }
+
+	playercharacter =CDoger("emmet-lego.bmp",WINDOW_WIDTH/2,WINDOW_HEIGHT- 124,0,0);
+	playercharacter.loadPlayer(renderer);
+
+
+	mars.imagename = "mars.bmp";
+	mars.loadPlayer(renderer);
+	mars.set_scroll_loc(0, 0, window_w, window_h);
     
     return true;
 }

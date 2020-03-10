@@ -77,6 +77,8 @@ void CPlayer::display(SDL_Renderer *renderer)
 
 }
 
+
+
 void CPlayer::move()
 {
     SDL_Rect *p;
@@ -91,10 +93,11 @@ void CPlayer::move()
         p->x += v->x;
     }
     p->y += v->y;
-    if ((p->y < 0) || (p->y >= (window_h - p->h)))
-    {
-        v->y = -v->y;
-        p->y += v->y;
-    }
+    
+
+	if (p->x >= window_w)
+	{
+	
+	}
 }
 

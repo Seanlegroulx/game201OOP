@@ -18,6 +18,8 @@
     <None Include="SDL2.dll">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="SDL2_ttf.dll" />
+    <None Include="..\..\..\..\..\..\..\SDL2\bin\zlib1.dll" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApp.cpp">
@@ -41,6 +43,12 @@
     <ClCompile Include="CPlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CDoger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scroller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApp.h">
@@ -52,6 +60,15 @@
     <ClInclude Include="mywindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CCharacter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CDoger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scroller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="emmet-lego.bmp">
@@ -60,5 +77,16 @@
     <Image Include="snowflake.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Flying_Saucer.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="mars.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="lazy.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
   </ItemGroup>
 </Project>

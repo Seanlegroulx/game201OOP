@@ -1,11 +1,12 @@
 //==============================================================================
 #include "CApp.h"
-
+int basevelocity = 0;
 
 void
 CApp::MoveSprites()
 {
     int i;
+	int hp = 20;
 
     /* Draw a gray background */
 
@@ -13,7 +14,35 @@ CApp::MoveSprites()
     for (i = 0; i < NUM_SPRITES; ++i)
     {
         allplayers[i].move();
-        allplayers[i].display(renderer);
+       
+		
+		if (checkCollision(playercharacter.position, allplayers[i].position))
+		{
+			allplayers[i].position.x = rand() % (window_w);
+			allplayers[i].position.y = (rand() % (300)) - 400;
+			allplayers[i].velocity.x = 0;
+			allplayers[i].velocity.y = rand() % (MAX_SPEED * 3) + 1;
+			
+		
+				health -= 1;
+				
+				points -= 5;
+
+
+			
+		
+		}
+		if (allplayers[i].position.y > window_h)
+		{
+			allplayers[i].position.x = rand() % (window_w);
+			allplayers[i].position.y = (rand() % (300)) - 400;
+			allplayers[i].velocity.x = 0;
+			allplayers[i].velocity.y = rand() % (MAX_SPEED * 3) + 1;
+			points += 1;
+
+
+			
+		}
     }
 
 
@@ -23,11 +52,18 @@ CApp::MoveSprites()
 //==============================================================================
 void CApp::OnLoop()
 {
-    SDL_SetRenderDrawColor(renderer, 0xA0, 0xA0, 0xA0, 0xFF);
-    SDL_RenderClear(renderer);
 
     
     MoveSprites();
+
+
+
+
+	
+	mars.move();
+
+
+	
    
 
 }

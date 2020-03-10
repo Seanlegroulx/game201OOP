@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <SDL_ttf.h>
+
 //==============================================================================
 bool CApp::OnInit()
 {
@@ -23,6 +25,14 @@ bool CApp::OnInit()
 
     if (!renderer)
         return false;
+
+
+	TTF_Init();		//starts up SDL_ttf 
+
+
+	font = TTF_OpenFont("lazy.ttf", 25);
+	color = { 255, 255, 0 };
+	
 
     if (LoadSprite("cb.bmp") < 0)
         return false;
